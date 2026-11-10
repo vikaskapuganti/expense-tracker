@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Tracker - Where Did My Money Go?</title>
+  <meta name="description" content="Free expense tracker. Add spending in two taps, see monthly charts by category and day, set a budget and export to CSV." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>Expense Tracker</h1>
+      <p class="subtitle">Where did my money go? Add spending in two taps and see it clearly.</p>
+    </header>
+
+    <!-- Month summary + budget -->
+    <section class="card summary">
+      <div class="month-nav">
+        <button type="button" class="icon-btn" id="prevMonth" aria-label="Previous month">‹</button>
+        <h2 id="monthTitle">This month</h2>
+        <button type="button" class="icon-btn" id="nextMonth" aria-label="Next month">›</button>
+      </div>
+      <div class="budget-row">
+        <div>
+          <p class="label">Spent this month</p>
+          <p class="big" id="monthTotal">₹0</p>
+          <p class="muted" id="monthCount">No expenses yet</p>
+        </div>
+        <label class="budget-input">
+          <span>Monthly budget (₹)</span>
+          <input type="number" id="budget" min="0" step="100" inputmode="numeric" placeholder="e.g. 6000" />
+        </label>
+      </div>
+      <div class="bar"><div class="bar-fill" id="budgetBar"></div></div>
+      <p class="advice" id="budgetAdvice"></p>
+    </section>
+
+    <!-- Add / edit expense -->
+    <section class="card">
+      <h2 id="formTitle">Add an expense</h2>
+      <form id="expenseForm" novalidate>
+        <div class="grid-2">
+          <label class="field">Amount (₹)
+            <input type="number" id="amount" min="1" step="1" inputmode="decimal" placeholder="e.g. 120" />
+          </label>
+          <label class="field">Date
+            <input type="date" id="date" />
+          </label>
+        </div>
+        <p class="label">Category</p>
+        <div class="cats" id="cats" role="radiogroup" aria-label="Category"></div>
+        <label class="field">Note (optional)
+          <input type="text" id="note" maxlength="60" placeholder="e.g. Lunch with friends" autocomplete="off" />
+        </label>
+        <p class="error" id="error" role="alert"></p>
+        <div class="form-actions">
+          <button type="submit" class="btn primary" id="saveBtn">Add expense</button>
+          <button type="button" class="btn ghost" id="cancelBtn" hidden>Cancel</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Charts -->
+    <section class="card" id="chartsCard">
+      <h2>By category</h2>
+      <div class="chart-wrap">
+        <svg class="donut" id="donut" viewBox="0 0 42 42" role="img" aria-label="Spending by category"></svg>
+        <div class="cat-list" id="catList"></div>
+      </div>
+      <h2 style="margin-top:18px">By day</h2>
+      <svg class="daily" id="daily" preserveAspectRatio="none" role="img" aria-label="Spending by day"></svg>
+    </section>
+
+    <!-- List -->
+    <section class="card">
+      <div class="row-end">
+        <h2 style="margin:0">Expenses</h2>
+        <button type="button" class="btn small" id="exportBtn">Download CSV</button>
+      </div>
+      <div id="txList"></div>
+      <p class="muted empty" id="emptyMsg">No expenses this month. Add one above.</p>
+    </section>
+
+    <section class="card how">
+      <h2>How it works</h2>
+      <p>Add each expense with an amount, date and category. Use the arrows at the top to look at other months.</p>
+      <p>Set a <b>monthly budget</b> and the bar turns amber at 80% and red when you go over. It also tells you how much you can spend per day for the rest of the month.</p>
+      <p><b>Download CSV</b> saves all your expenses in a file you can open in Excel or Google Sheets.</p>
+      <p>Everything is saved on this device only. No login, nothing sent anywhere.</p>
+    </section>
+
+    <footer class="footer">Built by Vikas Kapuganti</footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
